@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+           "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+
+<book lang="en_US">
+<bookinfo>
+<title>Elements of Infrastructure Programming</title>
+<date>May 24, 2014 </date><author>
+<firstname>Mark</firstname><surname>Heily</surname></author>
+</bookinfo>
+
+<chapter><title>What is Infrastructure Programming?</title>
+<para>Systems = the OS, low level</para>
+<para>Application = for end users, high level</para>
+<para>Infra = glue</para>
+</chapter>
+
+<chapter><title>Languages</title>
+
+<para>Bash</para>
+<para>Ruby</para>
+</chapter>
+
+<chapter><title>Principles</title>
+<para>DRY</para>
+<para>KISS</para>
+<para>Document the &ldquo;why&rdquo;</para>
+<para>Check return codes and fail fast</para>
+<para>Be defensive about inputs you accept</para>
+<para>Be consistent</para>
+</chapter>
+
+<chapter><title>Ruby Style</title>
+<section><title>Parenthesis</title>
+<para>Always use parenthesis around method names. Avoid using parenthesis around simple function calls.</para>
+<example><title>Parenthesis</title>
+<programlisting>
+# Good
+puts 'hi' or raise 'bye'
+
+# Bad
+puts('hi') or raise('bye')
+
+# Good
+File.new('/tmp/foo', 'w')
+
+# Bad
+File.new '/tmp/foo', 'w'
+</programlisting>
+</example>
+</section>
+</chapter>
+
+<chapter><title>Elements of a Script</title>
+
+<section><title>path to the script</title>
+<para>When deploying to the global namespace, use a site-specific prefix. Typically this is constructed from the company's name; e.g Acme Software would use the prefix &ldquo;as&rdquo;. A command named foo could have the path /usr/bin/as-foo.</para>
+<para>It would be even better to have a separate path for site-specific scripts. Then users can add this to their PATH. Example: /acme/bin/foo</para>
+</section>
+
+<section><title>The shebang line</title>
+<para>Every script should have a shebang line</para>
+<example><title>The shebang line in Bash</title>
+<programlisting>
+#!/bin/bash
+</programlisting>
+</example>
+<example><title>The shebang line in Ruby</title>
+<programlisting>
+#!/usr/bin/ruby -w
+</programlisting>
+</example>
+</section>
+
+
+<section><title>The header</title>
+<para>Every script should have a header</para>
+<example><title>The header in Bash or Ruby</title>
+<programlisting>
+#
+# Synopsis of program
+#
+# Author: Foo Bar
+#
+</programlisting>
+</example>
+</section>
+
+<section><title>MISC,TODO:split these</title>
+<para>library code (err, warn, logrotate, etc)</para>
+<para>functions</para>
+<para>the main() section</para>
+<para>processing arguments</para>
+<para>conffiles</para>
+<para>exit codes</para>
+<para>monitoring (mk-job, etc.)</para>
+<para>logging</para>
+<para>concurrency (i.e. locking)</para>
+<para>alarm timeouts</para>
+</section>
+</chapter>
+
+<chapter><title>Idioms</title>
+<para>
+TODO:
+  exceptions
+</para>
+<sect1><title>Global variables</title>
+<para>Global variables should be in ALL_CAPS</para>
+<example><title>Global variables in Bash</title>
+<programlisting>
+FOO="hello"
+</programlisting>
+</example>
+
+<example><title>Global variables in Ruby</title>
+<programlisting>
+FOO = 'hello'
+</programlisting>
+</example>
+</sect1>
+
+
+<sect1><title>Setting a variable based on the output of a command</title>
+<para>why...</para>
+<programlisting>
+x = %x( date +%Y-%m-%d )
+</programlisting>
+<programlisting>
+x = $( date +%Y-%m-%d )
+</programlisting>
+<para>Do not use backticks.</para>
+
+</sect1>
+
+<sect1><title>Simple conditionals</title>
+<para>A "simple" conditional expresses an either/or situation.</para>
+<example><title>Conditionals in Ruby</title><programlisting>
+if foo == 'bar'
+  puts 'hi'
+else
+  puts 'bye'
+end
+</programlisting></example>
+<para>Do not use 'unless' in Ruby.</para>
+
+<example><title>Conditionals in Bash</title><programlisting>
+if [ "$foo" == "bar" ] ; then
+  echo 'hi'
+else
+  echo 'bye'
+end
+</programlisting></example>
+<para>Use double quotes around each term.</para>
+</sect1>
+
+
+<sect1><title>Case statements</title>
+<para>A case statement should be used if there are more than two possible conditions.</para>
+<example><title>Case statements in Ruby</title><programlisting>
+case foo
+when 'bar'
+  puts 'hi'
+when 'baz'
+  puts 'ho'
+else
+  puts 'bye'
+end
+</programlisting></example>
+
+<example><title>Case statements in Bash</title><programlisting>
+case $foo in
+bar)
+  echo "hi"
+  ;;
+baz)
+  echo "ho"
+  ;;
+*)
+  echo "bye"
+  ;;
+esac
+</programlisting></example>
+</sect1>
+
+<sect1><title>Iteration</title>
+<para>Iteration is used to apply an action to each member of a list.</para>
+<example><title>Iteration in Ruby</title><programlisting>
+[ 'one', 'two', 'three' ].each do |x|
+  puts x
+end
+</programlisting></example>
+
+<example><title>Iteration in Bash</title><programlisting>
+for x in one two three
+do
+  echo $x
+done
+</programlisting></example>
+</sect1>
+
+
+<sect1><title>Creating temporary files</title>
+<para>Temporary files need to be created in a secure manner.</para>
+<example><title>Creating temporary files in Ruby</title><programlisting>
+require 'tempfile'
+f = Tempfile.new("blah")
+f.puts('hi')
+f.flush
+system("cat #{ f.path }")
+</programlisting></example>
+<para>The above example will create a temporary file with the first part of the name being "blah". The file will be automatically deleted when the program exits.</para>
+<example><title>Creating temporary files in Bash</title><programlisting>
+tmpfile=$(mktemp "/tmp/blah.XXXXXXX")
+echo 'hi' > $tmpfile
+cat $tmpfile
+rm $tmpfile
+</programlisting></example>
+<para>Note that in Bash, temporary files are not automatically deleted when the program exits.</para>
+</sect1>
+
+<sect1><title>Running system commands</title>
+<para>Sometimes, you need to run some system commands and make sure they complete successfully.</para>
+<example><title>Running system commands in Ruby</title><programlisting>
+system 'pgrep foo' or raise 'the foo process has died'
+</programlisting></example>
+<example><title>Running system commands in Bash</title><programlisting>
+pgrep foo || ( echo 'the foo process has died' ; exit 1 )
+</programlisting></example>
+</sect1>
+
+
+<sect1><title>Parsing command line options</title>
+<example><title>Parsing command line options in Ruby</title><programlisting>
+require 'optparse'
+
+options = {}
+
+optparse = OptionParser.new do |opts|
+  opts.on( '-h', '--help', 'Display this screen' ) do
+    puts opts
+    exit
+  end
+end
+
+optparse.parse!
+
+</programlisting></example>
+<para>
+For more information about using the OptionParser library, see <ulink url="http://ruby.about.com/od/advancedruby/a/optionparser2.htm">this tutorial</ulink>
+</para>
+
+<example><title>Parsing command line options in Bash</title><programlisting>
+while $*
+do
+case $1 in
+... FIXME
+esac
+done
+</programlisting></example>
+</sect1>
+
+</chapter>
+
+<chapter><title>Examples</title>
+<programlisting>
+#!/usr/bin/ruby
+#
+# Hello world
+#
+# Author:    John Doe
+#
+
+puts 'hello world'
+exit 0
+</programlisting>
+</chapter>
+
+<chapter><title>Recommended Reading</title>
+<itemizedlist>
+<listitem>
+<para>
+<ulink url="http://www.caliban.org/ruby/rubyguide.shtml">The Unofficial Ruby Usage Guide</ulink>
+</para>
+</listitem>
+</itemizedlist>
+</chapter>
+</book>
