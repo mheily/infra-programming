@@ -1,0 +1,22 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Case statements</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Elements of Infrastructure Programming"><link rel="up" href="ch06.html" title="Chapter 6. Idioms"><link rel="prev" href="ch06s03.html" title="Simple conditionals"><link rel="next" href="ch06s05.html" title="Iteration"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Case statements</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06s03.html">Prev</a> </td><th width="60%" align="center">Chapter 6. Idioms</th><td width="20%" align="right"> <a accesskey="n" href="ch06s05.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp53409424"></a>Case statements</h2></div></div></div><p>A case statement should be used if there are more than two possible conditions.</p><div class="example"><a name="idp53410352"></a><p class="title"><b>Example 6.5. Case statements in Ruby</b></p><div class="example-contents"><pre class="programlisting">
+case foo
+when 'bar'
+  puts 'hi'
+when 'baz'
+  puts 'ho'
+else
+  puts 'bye'
+end
+</pre></div></div><br class="example-break"><div class="example"><a name="idp53411424"></a><p class="title"><b>Example 6.6. Case statements in Bash</b></p><div class="example-contents"><pre class="programlisting">
+case $foo in
+bar)
+  echo "hi"
+  ;;
+baz)
+  echo "ho"
+  ;;
+*)
+  echo "bye"
+  ;;
+esac
+</pre></div></div><br class="example-break"></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch06s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch06.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch06s05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Simple conditionals </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Iteration</td></tr></table></div></body></html>
