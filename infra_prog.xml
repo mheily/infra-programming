@@ -30,6 +30,13 @@
 <para>Be consistent</para>
 </chapter>
 
+<chapter><title>Data structures</title>
+<section><title>Scalars</title>
+<para>Define scalars here</para>
+</section>
+
+</chapter>
+
 <chapter><title>Ruby Style</title>
 <section><title>Parenthesis</title>
 <para>Always use parenthesis around method names. Avoid using parenthesis around simple function calls.</para>
