@@ -35,6 +35,24 @@
 <para>Define scalars here</para>
 </section>
 
+<section><title>Arrays</title>
+<para>Arrays are ordered lists of items.</para>
+<example><title>Arrays in Ruby</title>
+<programlisting>
+numbers = [ 'one', 'two', 'three' ]
+</programlisting></example>
+</section>
+
+<section><title>Hashes</title>
+<para>
+A Hash is a collection of key-value pairs. It is also called an associative array.
+</para>
+<example><title>Hashes in Ruby</title>
+<programlisting>
+food_colors = { 'apple' => 'red', 'bannana' => 'yellow', 'grape' => 'green' }
+</programlisting></example>
+</section>
+
 </chapter>
 
 <chapter><title>Ruby Style</title>
@@ -224,6 +242,51 @@ cat $tmpfile
 rm $tmpfile
 </programlisting></example>
 <para>Note that in Bash, temporary files are not automatically deleted when the program exits.</para>
+</sect1>
+
+<sect1><title>Exception handling</title>
+<para>Sometimes you need to clean up after your script when it fails.</para>
+<example><title>Exception handling</title><programlisting>
+f = File.open("testfile")
+begin
+  # .. process
+rescue
+  # .. handle error
+ensure
+  f.close unless f.nil?
+end
+</programlisting></example>
+
+</sect1>
+
+
+<sect1><title>Setting a timeout</title>
+<example><title>Setting a timeout</title><programlisting>
+require 'timeout'
+
+begin
+  Timeout.timeout(1) do      
+   sleep(2)
+  end
+rescue Timeout::Error
+  puts 'Operation took too long, giving up..'
+end
+</programlisting></example>
+<para>
+The above example will fail with a timeout error, because it is given a timeout of 1 second but sleeps for two seconds.
+</para>
+</sect1>
+
+
+<sect1><title>Reading each line of a file</title>
+<example><title>Reading each line of a file</title><programlisting>
+File.readlines('/etc/hosts').each do |line|
+  puts line unless line =~ /localhost/
+end
+</programlisting></example>
+<para>
+The above example will display all of the lines in /etc/hosts, except for the ones that include the word 'localhost'
+</para>
 </sect1>
 
 <sect1><title>Running system commands</title>
