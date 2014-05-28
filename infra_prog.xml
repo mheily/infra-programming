@@ -16,8 +16,6 @@
 </chapter>
 
 <chapter><title>Languages</title>
-
-<para>Bash</para>
 <para>Ruby</para>
 </chapter>
 
@@ -31,13 +29,20 @@
 </chapter>
 
 <chapter><title>Data structures</title>
+
 <section><title>Scalars</title>
-<para>Define scalars here</para>
+<para>A scalar is a simple value, typically a string or a number.</para>
+
+<example><title>Scalars</title>
+<programlisting>
+foo = 'hello'
+myNumber = 123
+</programlisting></example>
 </section>
 
 <section><title>Arrays</title>
 <para>Arrays are ordered lists of items.</para>
-<example><title>Arrays in Ruby</title>
+<example><title>Arrays</title>
 <programlisting>
 numbers = [ 'one', 'two', 'three' ]
 </programlisting></example>
@@ -47,7 +52,7 @@ numbers = [ 'one', 'two', 'three' ]
 <para>
 A Hash is a collection of key-value pairs. It is also called an associative array.
 </para>
-<example><title>Hashes in Ruby</title>
+<example><title>Hashes</title>
 <programlisting>
 food_colors = { 'apple' => 'red', 'bannana' => 'yellow', 'grape' => 'green' }
 </programlisting></example>
@@ -55,7 +60,94 @@ food_colors = { 'apple' => 'red', 'bannana' => 'yellow', 'grape' => 'green' }
 
 </chapter>
 
-<chapter><title>Ruby Style</title>
+<chapter><title>Control structures</title>
+
+<sect1><title>Entry point</title>
+<para>Some languages have a function called main() that acts as the designated entry point for the program. Ruby does not have this concept, so execution just starts wherever the first statement is declared.
+</para>
+<example><title>Entry point</title><programlisting>
+def sub1
+  puts 'hi'
+end
+
+def sub2
+  puts 'bye'
+end
+
+# Program execution starts here
+
+sub1
+sub2
+exit 0
+
+</programlisting></example>
+</sect1>
+
+<sect1><title>Exit point</title>
+<para>
+The program will exit when you call the 'exit' command. Use zero if there were no errors, and a non-zero exit code if there are errors.
+</para>
+<example><title>Exit point</title><programlisting>
+exit 0
+</programlisting></example>
+</sect1>
+
+<sect1><title>Simple conditionals</title>
+<para>A "simple" conditional expresses an either/or situation.</para>
+<example><title>Simple conditionals</title><programlisting>
+if foo == 'bar'
+  puts 'hi'
+else
+  puts 'bye'
+end
+</programlisting></example>
+</sect1>
+
+<sect1><title>Case statements</title>
+<para>A case statement should be used if there are more than two possible conditions.</para>
+<example><title>Case statements</title><programlisting>
+case foo
+when 'bar'
+  puts 'hi'
+when 'baz'
+  puts 'ho'
+else
+  puts 'bye'
+end
+</programlisting></example>
+</sect1>
+
+<sect1><title>Iteration</title>
+<para>Iteration is used to apply an action to each member of a list.</para>
+<example><title>Iteration</title><programlisting>
+[ 'one', 'two', 'three' ].each do |x|
+  puts x
+end
+</programlisting></example>
+</sect1>
+
+<sect1><title>Functions</title>
+<para>Functions are reusable blocks of code.</para>
+<example><title>Functions</title>
+<programlisting>
+
+def say(something)
+  puts "*** #{something} ***"
+end
+
+say 'hello'
+say 'my name is computer'
+say 'goodbye'
+
+</programlisting>
+</example>
+</sect1>
+
+
+
+</chapter>
+
+<chapter><title>Style</title>
 <section><title>Parenthesis</title>
 <para>Always use parenthesis around method names. Avoid using parenthesis around simple function calls.</para>
 <example><title>Parenthesis</title>
@@ -85,12 +177,7 @@ File.new '/tmp/foo', 'w'
 
 <section><title>The shebang line</title>
 <para>Every script should have a shebang line</para>
-<example><title>The shebang line in Bash</title>
-<programlisting>
-#!/bin/bash
-</programlisting>
-</example>
-<example><title>The shebang line in Ruby</title>
+<example><title>The shebang line</title>
 <programlisting>
 #!/usr/bin/ruby -w
 </programlisting>
@@ -100,7 +187,7 @@ File.new '/tmp/foo', 'w'
 
 <section><title>The header</title>
 <para>Every script should have a header</para>
-<example><title>The header in Bash or Ruby</title>
+<example><title>The header</title>
 <programlisting>
 #
 # Synopsis of program
@@ -111,123 +198,104 @@ File.new '/tmp/foo', 'w'
 </example>
 </section>
 
-<section><title>MISC,TODO:split these</title>
-<para>library code (err, warn, logrotate, etc)</para>
-<para>functions</para>
-<para>the main() section</para>
-<para>processing arguments</para>
-<para>conffiles</para>
-<para>exit codes</para>
-<para>monitoring (mk-job, etc.)</para>
-<para>logging</para>
-<para>concurrency (i.e. locking)</para>
-<para>alarm timeouts</para>
-</section>
 </chapter>
 
 <chapter><title>Idioms</title>
+
+
+<sect1><title>Interpolation</title>
+<para>You can insert Ruby code into a string by surrounding it with #{}</para>
+<example><title>Interpolation</title>
+<programlisting>
+foo = 'happy'
+
+puts "I am feeling #{foo} today"
+</programlisting>
+</example>
 <para>
-TODO:
-  exceptions
+The above example prints "I am feeling happy today".
 </para>
-<sect1><title>Global variables</title>
-<para>Global variables should be in ALL_CAPS</para>
-<example><title>Global variables in Bash</title>
-<programlisting>
-FOO="hello"
-</programlisting>
-</example>
-
-<example><title>Global variables in Ruby</title>
-<programlisting>
-FOO = 'hello'
-</programlisting>
-</example>
 </sect1>
-
 
 <sect1><title>Setting a variable based on the output of a command</title>
 <para>why...</para>
 <programlisting>
 x = %x( date +%Y-%m-%d )
 </programlisting>
-<programlisting>
-x = $( date +%Y-%m-%d )
-</programlisting>
 <para>Do not use backticks.</para>
-
 </sect1>
 
-<sect1><title>Simple conditionals</title>
-<para>A "simple" conditional expresses an either/or situation.</para>
-<example><title>Conditionals in Ruby</title><programlisting>
-if foo == 'bar'
-  puts 'hi'
-else
-  puts 'bye'
+<sect1><title>Concurrency</title>
+<para>
+You should generally create a lockfile to avoid running multiple copies of the program concurrently.
+</para>
+<example><title>Concurrency</title><programlisting>
+f = File.open('/var/run/myprogram.pid', File::RDWR|File::CREAT, 0644)
+begin
+  f1.flock(File::LOCK_EX)
+  #
+  # do important things here
+  #
+ensure
+  f1.unlink
 end
 </programlisting></example>
-<para>Do not use 'unless' in Ruby.</para>
+<para>
+This is a very simple example that doesn't use any timeouts.
 
-<example><title>Conditionals in Bash</title><programlisting>
-if [ "$foo" == "bar" ] ; then
-  echo 'hi'
-else
-  echo 'bye'
-end
-</programlisting></example>
-<para>Use double quotes around each term.</para>
+More information about locking can be found <ulink url="http://www.codegnome.com/blog/2013/05/26/locking-files-with-ruby/">here</ulink>
+</para>
 </sect1>
 
+<sect1><title>Logging</title>
+<para>
+There is a class called Logger that you can use for logging.
+</para>
+<example><title>Logging to STDERR</title><programlisting>
+log = Logger.new(STDERR)
+log.level = Logger::DEBUG
 
-<sect1><title>Case statements</title>
-<para>A case statement should be used if there are more than two possible conditions.</para>
-<example><title>Case statements in Ruby</title><programlisting>
-case foo
-when 'bar'
-  puts 'hi'
-when 'baz'
-  puts 'ho'
-else
-  puts 'bye'
-end
+log.debug("Created logger")
+log.info("Program started")
+# do something here...
+log.info("Program is over")
 </programlisting></example>
+<para>
+The previous example will print all log messages to STDERR. Most of the time, you will want to write to a logfile. Here's an example that writes to a logfile. The logfile is rotated once it reaches one megabyte in size, and up to ten old logfiles are preserved.
+</para>
+<example><title>Logging to a file</title><programlisting>
+log = Logger.new('/var/log/myprogram.log', 10, 1024000)
+log.level = Logger::WARN
 
-<example><title>Case statements in Bash</title><programlisting>
-case $foo in
-bar)
-  echo "hi"
-  ;;
-baz)
-  echo "ho"
-  ;;
-*)
-  echo "bye"
-  ;;
-esac
-</programlisting></example>
-</sect1>
-
-<sect1><title>Iteration</title>
-<para>Iteration is used to apply an action to each member of a list.</para>
-<example><title>Iteration in Ruby</title><programlisting>
-[ 'one', 'two', 'three' ].each do |x|
-  puts x
-end
-</programlisting></example>
-
-<example><title>Iteration in Bash</title><programlisting>
-for x in one two three
-do
-  echo $x
-done
+log.debug("Created logger")
+log.info("Program started")
+# do something here...
+log.info("Program is over")
 </programlisting></example>
 </sect1>
 
+
+<sect1><title>Configuration files</title>
+<para>You can use YAML to define a configuration file containing simple key-value pairs. Given the following configuration file:</para>
+<programlisting>
+debug: true
+server: 'myserver.acme.com'
+port: 8080
+</programlisting>
+<para>
+You could read this into a hash named 'config' like so:
+</para>
+<example><title>Reading a configuration file</title><programlisting>
+require 'yaml'
+
+config = YAML.load_file('/etc/my_config_file')
+puts config['server'] + ':' + config['port']
+</programlisting></example>
+</sect1>
 
 <sect1><title>Creating temporary files</title>
 <para>Temporary files need to be created in a secure manner.</para>
-<example><title>Creating temporary files in Ruby</title><programlisting>
+<example><title>Creating temporary files</title><programlisting>
 require 'tempfile'
 f = Tempfile.new("blah")
 f.puts('hi')
@@ -235,30 +303,22 @@ f.flush
 system("cat #{ f.path }")
 </programlisting></example>
 <para>The above example will create a temporary file with the first part of the name being "blah". The file will be automatically deleted when the program exits.</para>
-<example><title>Creating temporary files in Bash</title><programlisting>
-tmpfile=$(mktemp "/tmp/blah.XXXXXXX")
-echo 'hi' > $tmpfile
-cat $tmpfile
-rm $tmpfile
-</programlisting></example>
-<para>Note that in Bash, temporary files are not automatically deleted when the program exits.</para>
 </sect1>
 
 <sect1><title>Exception handling</title>
 <para>Sometimes you need to clean up after your script when it fails.</para>
 <example><title>Exception handling</title><programlisting>
-f = File.open("testfile")
+f = File.open("tempfile", "w")
 begin
-  # .. process
+  f.write "hello"
 rescue
-  # .. handle error
+  # .. handle error, if you can
 ensure
   f.close unless f.nil?
 end
 </programlisting></example>
 
 </sect1>
-
 
 <sect1><title>Setting a timeout</title>
 <example><title>Setting a timeout</title><programlisting>
@@ -277,7 +337,6 @@ The above example will fail with a timeout error, because it is given a timeout 
 </para>
 </sect1>
 
-
 <sect1><title>Reading each line of a file</title>
 <example><title>Reading each line of a file</title><programlisting>
 File.readlines('/etc/hosts').each do |line|
@@ -291,17 +350,14 @@ The above example will display all of the lines in /etc/hosts, except for the on
 
 <sect1><title>Running system commands</title>
 <para>Sometimes, you need to run some system commands and make sure they complete successfully.</para>
-<example><title>Running system commands in Ruby</title><programlisting>
+<example><title>Running system commands</title><programlisting>
 system 'pgrep foo' or raise 'the foo process has died'
-</programlisting></example>
-<example><title>Running system commands in Bash</title><programlisting>
-pgrep foo || ( echo 'the foo process has died' ; exit 1 )
 </programlisting></example>
 </sect1>
 
 
 <sect1><title>Parsing command line options</title>
-<example><title>Parsing command line options in Ruby</title><programlisting>
+<example><title>Parsing command line options</title><programlisting>
 require 'optparse'
 
 options = {}
@@ -319,20 +375,11 @@ optparse.parse!
 <para>
 For more information about using the OptionParser library, see <ulink url="http://ruby.about.com/od/advancedruby/a/optionparser2.htm">this tutorial</ulink>
 </para>
-
-<example><title>Parsing command line options in Bash</title><programlisting>
-while $*
-do
-case $1 in
-... FIXME
-esac
-done
-</programlisting></example>
 </sect1>
 
 </chapter>
 
-<chapter><title>Examples</title>
+<chapter><title>Complete Examples</title>
 <programlisting>
 #!/usr/bin/ruby
 #
@@ -344,6 +391,52 @@ done
 puts 'hello world'
 exit 0
 </programlisting>
+</chapter>
+
+<chapter><title>Advanced Topics</title>
+<para>
+</para>
+<sect1><title>Data types</title>
+
+<sect2><title>Global variables</title>
+<para>Global variables should be avoided. If you have to use them, use the dollar sign.</para>
+<example><title>Global variables</title>
+<programlisting>
+$my_global = 'hello'
+</programlisting>
+</example>
+</sect2>
+
+<sect2><title>Constants</title>
+<para>A constant is something that never changes. It is typically written in ALL_CAPS</para>
+<example><title>Constants</title>
+<programlisting>
+PI = 3.14
+</programlisting></example>
+<para>
+If you try to modify a constant, it will generate a warning.
+</para>
+</sect2>
+
+<sect2><title>Symbols</title>
+<para>
+Symbol objects represent names and some strings inside the Ruby interpreter. They are typically used for efficiency reasons.
+</para>
+<example><title>Symbols</title>
+<programlisting>
+presidents = [
+   { :first => 'Barack', :last => 'Obama', },
+   { :first => 'George', :middle => 'W', :last => 'Bush' }
+   { :first => 'Bill', :last => 'Clinton' },
+   # .... and so on
+}
+</programlisting></example>
+<para>
+In the above example, the use of :first and :last is more efficient because it uses less memory.
+</para>
+</sect2>
+
+</sect1>
 </chapter>
 
 <chapter><title>Recommended Reading</title>
