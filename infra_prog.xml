@@ -17,6 +17,15 @@
 
 <chapter><title>Languages</title>
 <para>Ruby</para>
+<para>Benefits of Ruby:</para>
+<itemizedlist>
+<listitem><para>
+Everything is an object
+</para></listitem>
+<listitem><para>
+Flexible syntax - you can write compact one-liners for one-off tasks, or be verbose 
+</para></listitem>
+</itemizedlist>
 </chapter>
 
 <chapter><title>Principles</title>
@@ -26,6 +35,48 @@
 <para>Check return codes and fail fast</para>
 <para>Be defensive about inputs you accept</para>
 <para>Be consistent</para>
+<section>
+<title>Don't Repeat Yourself (DRY)</title>
+
+<para>
+Here is an example of a program with duplicate logic:
+</para>
+
+<programlisting>
+
+x = "hello"
+x.upcase!
+y = "John"
+puts x + ' ' + y
+
+x = "goodbye"
+x.upcase!
+y = "Fred"
+puts x + ' ' + y
+
+x = "hello"
+x.upcase!
+y = "Wanda"
+puts x + ' ' + y
+
+</programlisting>
+<para>
+To de-duplicate this program, use a function. Example:
+<programlisting>
+def say(action,person)
+  action.upcase!
+  puts action + ' ' + person
+end
+
+say 'hello', 'John'
+say 'goodbye', 'Fred'
+say 'hello', 'Wanda'
+</programlisting>
+</para>
+<para>
+<ulink url="http://programmer.97things.oreilly.com/wiki/index.php/Don't_Repeat_Yourself">See here</ulink> for more details.
+</para>
+</section>
 </chapter>
 
 <chapter><title>Data structures</title>
@@ -54,7 +105,11 @@ A Hash is a collection of key-value pairs. It is also called an associative arra
 </para>
 <example><title>Hashes</title>
 <programlisting>
-food_colors = { 'apple' => 'red', 'bannana' => 'yellow', 'grape' => 'green' }
+food_colors = { 
+  'apple' => 'red', 
+  'bannana' => 'yellow', 
+  'grape' => 'green', 
+}
 </programlisting></example>
 </section>
 
@@ -120,7 +175,9 @@ end
 <sect1><title>Iteration</title>
 <para>Iteration is used to apply an action to each member of a list.</para>
 <example><title>Iteration</title><programlisting>
-[ 'one', 'two', 'three' ].each do |x|
+items = [ 'one', 'two', 'three' ]
+
+items.each do |x|
   puts x
 end
 </programlisting></example>
