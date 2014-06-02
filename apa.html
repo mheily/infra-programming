@@ -1,0 +1,134 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Appendix A. Bash to Ruby</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Elements of Infrastructure Programming"><link rel="up" href="index.html" title="Elements of Infrastructure Programming"><link rel="prev" href="ch11.html" title="Chapter 11. Recommended Reading"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Appendix A. Bash to Ruby</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch11.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> </td></tr></table><hr></div><div class="appendix"><div class="titlepage"><div><div><h1 class="title"><a name="idp50800496"></a>Appendix A. Bash to Ruby</h1></div></div></div><p>
+</p><div class="table"><a name="idp50801424"></a><p class="title"><b>Table A.1. Bash concepts translated to Ruby</b></p><div class="table-contents"><table summary="Bash concepts translated to Ruby" border="1"><colgroup><col align="left" class="c1"><col align="left" class="c2"><col align="left" class="c3"></colgroup><thead><tr><th align="left">Concept</th><th align="left">Bash</th><th align="left">Ruby</th></tr></thead><tbody><tr><td align="left">Iteration</td><td align="left"><pre class="programlisting">
+for x in one two three
+do
+  echo $x
+done
+	</pre>
+</td><td align="left"><pre class="programlisting">
+['one', 'two', 'three'].each do |x|
+  puts x
+end
+</pre>
+</td></tr><tr><td align="left">Conditionals</td><td align="left"><pre class="programlisting">
+if [[ "$foo" = "bar" ]] 
+then
+  echo hi
+else
+  echo bye
+fi
+	</pre>
+</td><td align="left"><pre class="programlisting">
+if foo == 'bar'
+  puts 'hi'
+else
+  puts 'bye'
+end
+</pre>
+</td></tr><tr><td align="left">Case statement</td><td align="left"><pre class="programlisting">
+case $foo
+"bar")
+    echo "hi"
+    ;;
+"baz")
+    echo "ho"
+    ;;
+*)
+    echo "bye"
+    ;;
+esac
+	</pre>
+</td><td align="left"><pre class="programlisting">
+case foo
+when 'bar'
+  puts 'hi'
+when 'baz'
+  puts 'ho'
+else
+  puts 'bye'
+end
+</pre>
+</td></tr><tr><td align="left">String interpolation</td><td align="left"><pre class="programlisting">
+foo="John Smith"
+echo "Hello ${foo}"
+	</pre>
+</td><td align="left"><pre class="programlisting">
+foo = "John Smith"
+puts "Hello #{foo}"
+</pre>
+</td></tr><tr><td align="left">Functions</td><td align="left"><pre class="programlisting">
+say() {
+    text=$1
+
+    echo "*** ${text} ***"
+}
+
+say 'How are you?'
+say 'I am fine.'
+	</pre>
+</td><td align="left"><pre class="programlisting">
+def say(text)
+  puts "*** #{text} ***"
+end
+
+say 'How are you?'
+</pre>
+</td></tr><tr><td align="left">Regular Expressions</td><td align="left"><pre class="programlisting">
+number="123456"
+
+if [[ "$number" =~ ^[0-9]+$ ]] ; then
+  echo "The number is ${number}"
+else
+  echo "Illegal value; a number is required"
+  exit 1
+fi
+	</pre>
+</td><td align="left"><pre class="programlisting">
+number = '123456'
+
+if $number =~ ^[0-9]+$ 
+  puts "The number is #{number}"
+else
+  raise 'Illegal value; a number is required'
+end
+</pre>
+</td></tr><tr><td align="left">Run an external command, and capture the output</td><td align="left"><pre class="programlisting">
+date=`date`
+	</pre>
+</td><td align="left"><pre class="programlisting">
+date = `date`.chomp
+</pre>
+</td></tr><tr><td align="left">Run an external command, with error checking</td><td align="left"><pre class="programlisting">
+
+# Version 1: less compact
+
+/usr/bin/foo --arg1 --arg2
+if [ $? != 0 ] 
+then
+    echo "error running foo"
+    exit 1
+fi
+
+# Version 2: more compact
+
+/usr/bin/foo --arg1 --arg2 \
+    || ( echo 'error running foo' ; exit 1 )
+
+	</pre>
+</td><td align="left"><pre class="programlisting">
+
+# Version 1: less compact
+ 
+system '/usr/bin/foo --arg1 --arg2'
+if $? != 0  
+  raise 'error running foo'
+end
+
+# Version 2: more compact
+
+system '/usr/bin/foo --arg1 --arg2' \
+  || raise 'error running foo'
+
+</pre>
+</td></tr></tbody></table></div></div><p><br class="table-break"> 
+</p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch11.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> </td></tr><tr><td width="40%" align="left" valign="top">Chapter 11. Recommended Reading </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>
