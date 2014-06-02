@@ -8,6 +8,6 @@ publish:
 	git merge master
 	xmlto html *.xml
 	git add *.html
-	git commit
+	git commit -m'publishing it'
 	git push
 	git checkout master

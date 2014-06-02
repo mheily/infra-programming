@@ -16,16 +16,177 @@
 </chapter>
 
 <chapter><title>Languages</title>
-<para>Ruby</para>
-<para>Benefits of Ruby:</para>
+
+<section><title>Bash</title>
+<para>
+Pros:
+</para>
 <itemizedlist>
-<listitem><para>
-Everything is an object
-</para></listitem>
-<listitem><para>
-Flexible syntax - you can write compact one-liners for one-off tasks, or be verbose 
-</para></listitem>
+  <listitem>
+    <para>
+      Fast
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      Easy to run shell commands and combine them into pipelines
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      Tiny grammar and minimal syntax
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      Part of the standard toolkit of most Unix administrators
+    </para>
+  </listitem>
+
 </itemizedlist>
+
+<para>
+Cons:
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      Not object oriented.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      All variables share a single scope.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      Limited functionality.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      The intent of the programmer is easily concealed behind a maze of pipes and external utilities.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      Functions are awkward to use; they have no prototypes, and can only return an integer value.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      No hash type in Bash 3.x
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      No libraries for working with LDAP, JSON, HTML, HTTP, XML, DNS, etc.
+    </para>
+  </listitem>
+
+</itemizedlist>
+
+</section>
+
+<section><title>Ruby</title>
+
+<para>Pros:</para>
+<itemizedlist>
+
+  <listitem>
+    <para>
+      Popular
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      General-purpose programming language
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      Everything is an object
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      Flexible syntax - you can write compact one-liners for one-off tasks, or be verbose 
+    </para>
+  </listitem>
+
+<listitem>
+  <para>
+    Similar to shell scripting
+  </para>
+</listitem>
+</itemizedlist>
+
+<para>Cons:</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      More than one way to do things.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      Moderate amount of syntactic sugar.
+    </para>
+  </listitem>
+</itemizedlist>
+
+</section>
+
+<section><title>Python</title>
+<para>
+Pros:
+</para>
+<itemizedlist>
+  <listitem><para>Popular</para></listitem>
+  <listitem><para>General-purpose programming language</para></listitem>
+  <listitem><para>Simple grammar</para></listitem>
+  <listitem><para>Limited syntactic sugar</para></listitem>
+</itemizedlist>
+<para>
+Cons:
+</para>
+
+<itemizedlist>
+  <listitem><para>Not a pure object-oriented language</para></listitem>
+  <listitem><para>The standard library doesn't support exec(). You have to 'import os'</para></listitem>
+  <listitem><para>Dissimilar to Bash</para>
+  <orderedlist>
+    <listitem><para>whitespace is significant</para></listitem>
+    <listitem><para>parenthesis when calling functions</para></listitem>
+  </orderedlist>
+  </listitem>
+
+  <listitem><para>Missing features that Bash has</para>
+  <orderedlist>
+    <listitem><para>backticks</para></listitem>
+    <listitem><para>case statements</para></listitem>
+    <listitem><para>the $? variable</para></listitem>
+    <listitem><para>string interpolation</para></listitem>
+    <listitem><para>first class regular expressions</para></listitem>
+    <listitem><para>control flow operators (&amp;&amp; and ||)</para></listitem>
+  </orderedlist>
+  </listitem>
+</itemizedlist>
+</section>
 </chapter>
 
 <chapter><title>Principles</title>
@@ -505,4 +666,212 @@ In the above example, the use of :first and :last is more efficient because it u
 </listitem>
 </itemizedlist>
 </chapter>
+
+<appendix>
+<title>Bash to Ruby</title>
+<para>
+<table frame='all'>
+  <title>Bash concepts translated to Ruby</title>
+  <tgroup cols='3' align='left' colsep='1' rowsep='1'>
+    <colspec colname='c1'  colwidth="1*"/>
+    <colspec colname='c2'  colwidth="1*"/>
+    <colspec colname='c3'  colwidth="1*"/>
+    <thead>
+      <row>
+        <entry>Concept</entry>
+        <entry>Bash</entry>
+        <entry>Ruby</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+	<entry>Iteration</entry>
+        <entry><programlisting>
+for x in one two three
+do
+  echo $x
+done
+	</programlisting>
+</entry>
+<entry><programlisting>
+['one', 'two', 'three'].each do |x|
+  puts x
+end
+</programlisting>
+</entry>
+      </row>
+
+      <row>
+	<entry>Conditionals</entry>
+        <entry><programlisting>
+if [[ "$foo" = "bar" ]] 
+then
+  echo hi
+else
+  echo bye
+fi
+	</programlisting>
+</entry>
+<entry><programlisting>
+if foo == 'bar'
+  puts 'hi'
+else
+  puts 'bye'
+end
+</programlisting>
+</entry>
+      </row>
+
+
+      <row>
+	<entry>Case statement</entry>
+        <entry><programlisting>
+case $foo
+"bar")
+    echo "hi"
+    ;;
+"baz")
+    echo "ho"
+    ;;
+*)
+    echo "bye"
+    ;;
+esac
+	</programlisting>
+</entry>
+<entry><programlisting>
+case foo
+when 'bar'
+  puts 'hi'
+when 'baz'
+  puts 'ho'
+else
+  puts 'bye'
+end
+</programlisting>
+</entry>
+      </row>
+
+      <row>
+	<entry>String interpolation</entry>
+        <entry><programlisting>
+foo="John Smith"
+echo "Hello ${foo}"
+	</programlisting>
+</entry>
+<entry><programlisting>
+foo = "John Smith"
+puts "Hello #{foo}"
+</programlisting>
+</entry>
+      </row>
+
+
+      <row>
+	<entry>Functions</entry>
+        <entry><programlisting>
+say() {
+    text=$1
+
+    echo "*** ${text} ***"
+}
+
+say 'How are you?'
+say 'I am fine.'
+	</programlisting>
+</entry>
+<entry><programlisting>
+def say(text)
+  puts "*** #{text} ***"
+end
+
+say 'How are you?'
+</programlisting>
+</entry>
+      </row>
+
+      <row>
+	<entry>Regular Expressions</entry>
+        <entry><programlisting>
+number="123456"
+
+if [[ "$number" =~ ^[0-9]+$ ]] ; then
+  echo "The number is ${number}"
+else
+  echo "Illegal value; a number is required"
+  exit 1
+fi
+	</programlisting>
+</entry>
+<entry><programlisting>
+number = '123456'
+
+if $number =~ ^[0-9]+$ 
+  puts "The number is #{number}"
+else
+  raise 'Illegal value; a number is required'
+end
+</programlisting>
+</entry>
+      </row>
+
+
+      <row>
+	<entry>Run an external command, and capture the output</entry>
+        <entry><programlisting>
+date=`date`
+	</programlisting>
+</entry>
+<entry><programlisting>
+date = `date`.chomp
+</programlisting>
+</entry>
+      </row>
+
+
+      <row>
+	<entry>Run an external command, with error checking</entry>
+        <entry><programlisting>
+
+# Version 1: less compact
+
+/usr/bin/foo --arg1 --arg2
+if [ $? != 0 ] 
+then
+    echo "error running foo"
+    exit 1
+fi
+
+# Version 2: more compact
+
+/usr/bin/foo --arg1 --arg2 \
+    || ( echo 'error running foo' ; exit 1 )
+
+	</programlisting>
+</entry>
+<entry><programlisting>
+
+# Version 1: less compact
+ 
+system '/usr/bin/foo --arg1 --arg2'
+if $? != 0  
+  raise 'error running foo'
+end
+
+# Version 2: more compact
+
+system '/usr/bin/foo --arg1 --arg2' \
+  || raise 'error running foo'
+
+</programlisting>
+</entry>
+      </row>
+
+    </tbody>
+  </tgroup>
+</table> 
+</para>
+</appendix>
+
 </book>
+
