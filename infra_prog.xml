@@ -9,13 +9,85 @@
 <firstname>Mark</firstname><surname>Heily</surname></author>
 </bookinfo>
 
-<chapter><title>What is Infrastructure Programming?</title>
-<para>Systems = the OS, low level</para>
-<para>Application = for end users, high level</para>
-<para>Infra = glue</para>
+<chapter>
+
+<title>What is Infrastructure Programming?</title>
+
+<section>
+
+<title>Overview</title>
+<para>
+There are numerous specialties within the discipline of computer programming. Examples include:
+<itemizedlist>
+  <listitem>
+    <para>
+      Systems programming -- operating systems, compilers, etc.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      Application programming -- office suites, web browsers, etc.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      Scientific programming -- physics simulations, weather forcasting, etc.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      Financial programming -- banking software, automated stock trading, etc. 
+    </para>
+  </listitem>
+
+</itemizedlist> 
+</para>
+
+<para>
+This book introduces the concept of "infrastructure programming" as a distinct specialty within programming at large.
+</para>
+
+</section>
+
+<section>
+<title>Features</title>
+<para>
+There are several distinguishing features of infrastructure programming:
+</para>
+<orderedlist>
+  <listitem>
+    <para>
+      The programs are usually designed to run unattended, at regular intervals, with no human interaction.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      The end users are system administrators, or other highly technical engineers.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      Programs often rely on querying multiple systems, such as DNS, LDAP, and other databases.
+    </para>
+  </listitem>
+</orderedlist>
+</section>
 </chapter>
 
 <chapter><title>Languages</title>
+
+<para>
+This chapter examines the suitability of various programming languages for use in infrastructure programming.
+</para>
+
+<para>
+This examples in this book are written in Ruby, but many of the principles can be applied to any language. Ruby offers a good balance of simplicity and power, and is superficially similar to shell scripting. 
+</para>
 
 <section><title>Bash</title>
 <para>
@@ -60,12 +132,6 @@ Cons:
 
   <listitem>
     <para>
-      All variables share a single scope.
-    </para>
-  </listitem>
-
-  <listitem>
-    <para>
       Limited functionality.
     </para>
   </listitem>
@@ -84,7 +150,7 @@ Cons:
 
   <listitem>
     <para>
-      No hash type in Bash 3.x
+      Primitive support for arrays and hashes.
     </para>
   </listitem>
 
@@ -94,6 +160,67 @@ Cons:
     </para>
   </listitem>
 
+</itemizedlist>
+
+</section>
+<section><title>Perl</title>
+
+<para>Pros:</para>
+<itemizedlist>
+
+  <listitem>
+    <para>
+      Traditionally popular with Unix system administrators
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      General-purpose programming language
+    </para>
+  </listitem>
+
+
+  <listitem>
+    <para>
+      Flexible syntax - you can write compact one-liners for one-off tasks, or be verbose 
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      Similar to shell scripting
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      Many libraries available.
+    </para>
+  </listitem>
+
+</itemizedlist>
+
+<para>Cons:</para>
+<itemizedlist>
+
+  <listitem>
+    <para>
+      Not object-oriented
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      More than one way to do things.
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+      High amount of syntactic sugar.
+    </para>
+  </listitem>
 </itemizedlist>
 
 </section>
@@ -171,11 +298,11 @@ Cons:
   <listitem><para>Dissimilar to Bash</para>
   <orderedlist>
     <listitem><para>whitespace is significant</para></listitem>
-    <listitem><para>parenthesis when calling functions</para></listitem>
+    <listitem><para>mandatory parenthesis when calling functions</para></listitem>
   </orderedlist>
   </listitem>
 
-  <listitem><para>Missing features that Bash has</para>
+  <listitem><para>Missing features</para>
   <orderedlist>
     <listitem><para>backticks</para></listitem>
     <listitem><para>case statements</para></listitem>
@@ -367,7 +494,7 @@ say 'goodbye'
 
 <chapter><title>Style</title>
 <section><title>Parenthesis</title>
-<para>Always use parenthesis around method names. Avoid using parenthesis around simple function calls.</para>
+<para>Always use parenthesis when invoking methods. Avoid using parenthesis around simple function calls that only take a single argument.</para>
 <example><title>Parenthesis</title>
 <programlisting>
 # Good
