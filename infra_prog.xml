@@ -969,7 +969,7 @@ fi
 <entry><programlisting>
 number = '123456'
 
-if $number =~ ^[0-9]+$ 
+if $number =~ /^[0-9]+$/
   puts "The number is #{number}"
 else
   raise 'Illegal value; a number is required'
