@@ -1,3 +1,7 @@
+#
+# See the COPYING file for license information
+#
+
 preview:
 	mkdir -p tmp
 	xmlto -o tmp html *.xml
