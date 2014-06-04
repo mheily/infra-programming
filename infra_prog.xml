@@ -7,6 +7,20 @@
 <title>Elements of Infrastructure Programming</title>
 <date>May 24, 2014 </date><author>
 <firstname>Mark</firstname><surname>Heily</surname></author>
+  <copyright>
+    <year>2014</year>
+    <holder>Mark Heily</holder>
+</copyright>
+
+<legalnotice>
+<para>
+Permission to use, copy, modify, and/or distribute this document for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
+</para>
+<para>
+THIS DOCUMENT IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS DOCUMENT INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OF THIS DOCUMENT.
+</para>
+</legalnotice>
+
 </bookinfo>
 
 <chapter>
@@ -75,6 +89,13 @@ There are several distinguishing features of infrastructure programming:
       Programs often rely on querying multiple systems, such as DNS, LDAP, and other databases.
     </para>
   </listitem>
+
+  <listitem>
+    <para>
+      The programmers are typically people who have a background in systems administration but limited experience with programming.
+    </para>
+  </listitem>
+
 </orderedlist>
 </section>
 </chapter>
@@ -547,6 +568,9 @@ File.new '/tmp/foo', 'w'
 
 <chapter><title>Idioms</title>
 
+<para>
+In the context of programming, "idioms" are techniques for solving common problems. 
+</para>
 
 <sect1><title>Interpolation</title>
 <para>You can insert Ruby code into a string by surrounding it with #{}</para>
@@ -563,11 +587,10 @@ The above example prints "I am feeling happy today".
 </sect1>
 
 <sect1><title>Setting a variable based on the output of a command</title>
-<para>why...</para>
+<para>Use backticks to run a command and capture the output. The chomp() method will remove the newline from the output.</para>
 <programlisting>
-x = %x( date +%Y-%m-%d )
+x = `date +%Y-%m-%d`.chomp
 </programlisting>
-<para>Do not use backticks.</para>
 </sect1>
 
 <sect1><title>Concurrency</title>
@@ -705,9 +728,20 @@ system 'pgrep foo' or raise 'the foo process has died'
 <example><title>Parsing command line options</title><programlisting>
 require 'optparse'
 
-options = {}
+options = {
+  'uri' => nil,
+  'verbose' => false,
+}
 
 optparse = OptionParser.new do |opts|
+  opts.on( '--verbose', 'Display extra debugging information') do |arg|
+    options['verbose'] = true
+  end
+
+  opts.on( '--uri URI', 'The URI to access') do |arg|
+    options['uri'] = arg
+  end
+
   opts.on( '-h', '--help', 'Display this screen' ) do
     puts opts
     exit
@@ -715,6 +749,8 @@ optparse = OptionParser.new do |opts|
 end
 
 optparse.parse!
+
+raise '--uri is required' if uri.nil?
 
 </programlisting></example>
 <para>
