@@ -1,6 +1,6 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Logging</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Elements of Infrastructure Programming"><link rel="up" href="ch08.html" title="Chapter 8. Idioms"><link rel="prev" href="ch08s03.html" title="Concurrency"><link rel="next" href="ch08s05.html" title="Configuration files"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Logging</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch08s03.html">Prev</a> </td><th width="60%" align="center">Chapter 8. Idioms</th><td width="20%" align="right"> <a accesskey="n" href="ch08s05.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp56177504"></a>Logging</h2></div></div></div><p>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Logging</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Elements of Infrastructure Programming"><link rel="up" href="ch08.html" title="Chapter 8. Idioms"><link rel="prev" href="ch08s03.html" title="Concurrency"><link rel="next" href="ch08s05.html" title="Configuration files"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Logging</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch08s03.html">Prev</a> </td><th width="60%" align="center">Chapter 8. Idioms</th><td width="20%" align="right"> <a accesskey="n" href="ch08s05.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp56425024"></a>Logging</h2></div></div></div><p>
 There is a class called Logger that you can use for logging.
-</p><div class="example"><a name="idp56178480"></a><p class="title"><b>Example 8.3. Logging to STDERR</b></p><div class="example-contents"><pre class="programlisting">
+</p><div class="example"><a name="idp56426000"></a><p class="title"><b>Example 8.3. Logging to STDERR</b></p><div class="example-contents"><pre class="programlisting">
 log = Logger.new(STDERR)
 log.level = Logger::DEBUG
 
@@ -10,7 +10,7 @@ log.info("Program started")
 log.info("Program is over")
 </pre></div></div><br class="example-break"><p>
 The previous example will print all log messages to STDERR. Most of the time, you will want to write to a logfile. Here's an example that writes to a logfile. The logfile is rotated once it reaches one megabyte in size, and up to ten old logfiles are preserved.
-</p><div class="example"><a name="idp56180320"></a><p class="title"><b>Example 8.4. Logging to a file</b></p><div class="example-contents"><pre class="programlisting">
+</p><div class="example"><a name="idp56427840"></a><p class="title"><b>Example 8.4. Logging to a file</b></p><div class="example-contents"><pre class="programlisting">
 log = Logger.new('/var/log/myprogram.log', 10, 1024000)
 log.level = Logger::WARN
 
